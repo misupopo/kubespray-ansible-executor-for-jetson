@@ -29,6 +29,13 @@
         mode: +x
       when: not docker_compose.stat.exists
 
+    - name: Set daemon.json for nvidia
+      become: yes
+      template:
+        src: daemon.json
+        dest: /etc/docker/daemon.json
+        force: yes
+
     - name: Add user to docker group
       become: yes
       command:
