@@ -9,6 +9,12 @@ kubespray-ansible-executor-for-jetson は jetson 上に kubernetes cluster を�
 ### mac
 [mac の場合はこちら](docs/mac.md)
 
+### kuberspray を clone
+kuberspray を git clone してください。
+```
+make clone-kubespray
+```
+
 ### env の設定
 env.json5.sample から env.json5 を複製して用意してください。
 - user
