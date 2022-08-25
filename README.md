@@ -46,7 +46,7 @@ make copy-inventory
 inventory に 対象の ip address を追加してください。
 ```
 declare -a IPS=(192.168.100.101 192.168.100.102 192.168.100.103)
-CONFIG_FILE=inventory/mycluster/hosts.yml python3 contrib/inventory_builder/inventory.py ${IPS[@]}
+CONFIG_FILE=kubespray/inventory/mycluster/hosts.yml python3 kubespray/contrib/inventory_builder/inventory.py ${IPS[@]}
 ```
 
 #### hosts を設定
