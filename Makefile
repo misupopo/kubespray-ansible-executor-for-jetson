@@ -10,8 +10,11 @@ clone-kubespray:
 copy-inventory:
 	cp -rfp $(EXECUTION_PATH)/inventory/sample $(EXECUTION_PATH)/inventory/mycluster
 
+SSH_KEY_NAME := $(shell jq -r .sshKeyName env.json)
+
 execute: convert-json
 	ansible-playbook -i $(EXECUTION_PATH)/inventory/mycluster/hosts.yml \
+		--private-key="~/.ssh/$(EXECUTION_PATH)" \
 		--become \
 		--become-user=root \
 		$(EXECUTION_PATH)/cluster.yml \
@@ -29,12 +32,16 @@ execute-no-cache: convert-json
 
 scale: convert-json
 	ansible-playbook -i $(EXECUTION_PATH)/inventory/mycluster/hosts.yml \
+		--private-key="~/.ssh/$(EXECUTION_PATH)" \
+		--become \
+		--become-user=root \
 		$(EXECUTION_PATH)/scale.yml -b -v \
 		-u $(USER) \
 		-kK
 
 reset: convert-json
 	ansible-playbook -i $(EXECUTION_PATH)/inventory/mycluster/hosts.yml \
+		--private-key="~/.ssh/$(EXECUTION_PATH)" \
 		--become \
 		--become-user=root \
 		--flush-cache \
@@ -44,6 +51,9 @@ reset: convert-json
 
 setup: convert-json
 	ansible-playbook -i $(EXECUTION_PATH)/inventory/mycluster/hosts.yml \
+		--private-key="~/.ssh/$(EXECUTION_PATH)" \
+		--become \
+		--become-user=root \
 		update.yml \
 		--ask-pass \
 		--ask-become-pass \
@@ -53,3 +63,10 @@ setup: convert-json
 
 generate-vagrant-key:
 	ssh-keygen -t rsa -f vagrant
+
+#setup:
+#	ansible-playbook -i ./inventory \
+#		test.yml \
+#		--ask-pass \
+#		--ask-become-pass \
+#		-u $(USER)
