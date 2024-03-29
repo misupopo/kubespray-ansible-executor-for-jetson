@@ -61,6 +61,8 @@ setup: convert-json
 
 # ------------------------ vagrant ------------------------
 
+# 鍵 をauzthorized_keys に追加したら vagrant ユーザーでログインする（ubuntu ではない！）
+# ssh -i vagrant vagrant@192.168.56.2
 generate-vagrant-key:
 	ssh-keygen -t rsa -f vagrant
 
